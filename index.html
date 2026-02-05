@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💕</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at top, #2b1055, #0f0c29);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #333;
+}
+
+/* TAP SCREEN */
+#tapScreen {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    z-index: 999;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* CARD */
+.card {
+    background: #fff;
+    width: 420px;
+    padding: 32px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+    animation: pop 1s ease;
+    font-family: 'Playfair Display', serif;
+}
+
+@keyframes pop {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    color: #c9184a;
+}
+
+.name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    color: #ff4d6d;
+}
+
+/* PHOTOS */
+.photos {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 18px 0;
+}
+
+.photos img {
+    width: 145px;
+    height: 145px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 3px solid #ffc2d1;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+/* BUTTONS */
+.buttons {
+    position: relative;
+    height: 140px;
+    margin-top: 25px;
+}
+
+button {
+    padding: 14px 32px;
+    border: none;
+    border-radius: 40px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#yesBtn {
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    color: white;
+    box-shadow: 0 12px 25px rgba(255,77,109,0.6);
+}
+
+#noBtn {
+    background: #f1f1f1;
+    position: absolute;
+    left: 220px;
+}
+
+/* ❤️ LETTER EFFECT */
+.letter {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    animation: letterFloat 6s ease-in-out infinite;
+}
+
+@keyframes letterFloat {
+    0%   { transform: translateZ(0px) rotateX(0deg); }
+    50%  { transform: translateZ(28px) rotateX(3deg); }
+    100% { transform: translateZ(0px) rotateX(0deg); }
+}
+
+.letter span {
+    opacity: 0;
+    animation: fadeIn 0.4s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* HEARTS */
+.heart {
+    position: absolute;
+    font-size: 22px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-700px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="tapScreen" onclick="startMusic()">
+    Tap to begin our love story 💖
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="music/nikitakondrashev-love-story-437006.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+    <h1>Hey My Love 💕</h1>
+    <div class="name">UMA DHUNGEL</div>
+
+    <p>I made this just for you… from my heart.</p>
+
+    <div class="photos">
+        <img src="photos/hami.jpg">
+        <img src="photos/maya.JPEG">
+    </div>
+
+    <p>Will you be my Valentine? 🌹</p>
+
+    <div class="buttons">
+        <button id="yesBtn" onclick="yesClicked()">YES 💖</button>
+        <button id="noBtn" onclick="noClicked()">No 🙈</button>
+    </div>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+
+function startMusic() {
+    music.volume = 0.8;
+    music.play();
+    document.getElementById("tapScreen").remove();
+}
+
+let noCount = 0;
+let yesScale = 1;
+
+const noTexts = [
+    "Don’t you miss the time we spent together?",
+    "I’ll take you for pani puri or a momo date.",
+    "I’ll buy you flowers, every single time.",
+    "I’ll buy you promise rings too.",
+    "Okay… I’ll wait forever."
+];
+
+function noClicked() {
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    yesScale += 0.25;
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    if (noCount >= noTexts.length - 1) {
+        noBtn.style.display = "none";
+        return;
+    }
+
+    noBtn.innerText = noTexts[++noCount];
+    noBtn.style.left = Math.random() * 220 + "px";
+    noBtn.style.top = Math.random() * 90 + "px";
+}
+
+function showLetter(lines, callback) {
+    const card = document.getElementById("card");
+    card.innerHTML = `<div class="letter"></div>`;
+    const container = card.querySelector(".letter");
+
+    let delay = 0;
+    lines.forEach(line => {
+        const p = document.createElement("p");
+        [...line].forEach(char => {
+            const span = document.createElement("span");
+            span.textContent = char;
+            span.style.animationDelay = `${delay}s`;
+            delay += 0.04;
+            p.appendChild(span);
+        });
+        delay += 0.6;
+        container.appendChild(p);
+    });
+
+    setTimeout(callback, delay * 1000 + 1000);
+}
+
+function yesClicked() {
+    confetti();
+
+    const letter = [
+        "Almost three years with you, and I still miss you like the first day apart.",
+        "Distance has tested us, but it never changed how deeply I love you.",
+        "I miss your voice, your presence, and the life we are building together.",
+        "No matter how far we are, my heart has never left your side.",
+        "You are my today, my tomorrow, and every version of my future."
+    ];
+
+    showLetter(letter, endScreen);
+}
+
+function endScreen() {
+    document.getElementById("card").innerHTML = `
+        <h1>Until I See You Again… 💕</h1>
+        <p>I will keep choosing you.</p>
+        <p>Across every distance.</p>
+        <p>Across every lifetime.</p>
+    `;
+}
+
+function confetti() {
+    for (let i = 0; i < 60; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.bottom = "0px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }
+}
+</script>
+
+</body>
+</html>
