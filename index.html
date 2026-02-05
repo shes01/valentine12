@@ -2,127 +2,184 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Be My Valentine 💕</title>
+<title>Forever Yours 💕</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+* { box-sizing: border-box; }
+
 body {
     margin: 0;
-    height: 100vh;
-    background: radial-gradient(circle at top, #2b1055, #0f0c29);
+    min-height: 100vh;
+    background: #0b061f; /* dark background for floating hearts */
     display: flex;
     justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    color: #333;
+    align-items: flex-start; /* top align for scroll */
+    overflow-x: hidden;
+    overflow-y: auto; /* enable vertical scrolling */
+    padding: 40px 0;
+    font-family: 'Playfair Display', serif;
+    cursor: url('https://cur.cursors-4u.net/others/oth-1/oth15.cur'), auto;
+    color: #fff5f7;
 }
 
 /* TAP SCREEN */
 #tapScreen {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.75);
+    background: linear-gradient(135deg, rgba(255,77,109,.3), rgba(0,0,0,.9));
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Dancing Script', cursive;
-    font-size: 28px;
+    font-size: 32px;
     z-index: 999;
     cursor: pointer;
     text-align: center;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: .6; }
+    50% { opacity: 1; }
+    100% { opacity: .6; }
 }
 
 /* CARD */
 .card {
-    background: #fff;
-    width: 420px;
-    padding: 32px;
-    border-radius: 30px;
+    background: rgba(255, 230, 240, 0.9); /* romantic pinkish semi-transparent */
+    width: 440px;
+    max-width: 90%;
+    padding: 36px;
+    border-radius: 32px;
     text-align: center;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-    animation: pop 1s ease;
-    font-family: 'Playfair Display', serif;
+    box-shadow: 0 40px 90px rgba(255,77,109,0.45), 0 0 30px rgba(255,182,193,0.3);
+    animation: pop 1.2s ease;
+    position: relative;
+    margin-bottom: 40px; /* bottom space for scrolling */
+    border: 2px solid #ffb6c1; /* delicate border */
+}
+
+/* hearts on top of card */
+.card::before {
+    content: "💗 💞 💗";
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
 }
 
 @keyframes pop {
-    from { transform: scale(0.7); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from { transform: scale(.6) rotate(-3deg); opacity: 0; }
+    to { transform: scale(1) rotate(0); opacity: 1; }
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
-    font-size: 36px;
+    font-size: 40px;
     color: #c9184a;
+    margin-bottom: 6px;
 }
 
 .name {
     font-family: 'Dancing Script', cursive;
-    font-size: 28px;
+    font-size: 30px;
     color: #ff4d6d;
+    margin-bottom: 12px;
+}
+
+/* SWEET TEXT */
+p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #5a0f24;
 }
 
 /* PHOTOS */
 .photos {
     display: flex;
     justify-content: center;
-    gap: 14px;
+    gap: 16px;
     margin: 18px 0;
 }
 
 .photos img {
     width: 145px;
     height: 145px;
-    border-radius: 20px;
+    border-radius: 22px;
     object-fit: cover;
-    border: 3px solid #ffc2d1;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    border: 4px solid #ffd6e0;
+    box-shadow: 0 18px 30px rgba(255,77,109,.35);
+    transition: transform .4s;
+}
+
+.photos img:hover {
+    transform: scale(1.06) rotate(1deg);
 }
 
 /* BUTTONS */
 .buttons {
     position: relative;
-    height: 140px;
-    margin-top: 25px;
+    height: 160px;
+    margin-top: 26px;
 }
 
 button {
-    padding: 14px 32px;
+    padding: 16px 38px;
     border: none;
-    border-radius: 40px;
-    font-size: 16px;
+    border-radius: 50px;
+    font-size: 17px;
     cursor: pointer;
+    font-family: 'Playfair Display', serif;
 }
 
 #yesBtn {
-    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    background: linear-gradient(135deg, #ff4d6d, #ff8fab);
     color: white;
-    box-shadow: 0 12px 25px rgba(255,77,109,0.6);
+    box-shadow: 0 14px 35px rgba(255,77,109,.7);
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 20px rgba(255,77,109,.5); }
+    50% { box-shadow: 0 0 45px rgba(255,77,109,1); }
+    100% { box-shadow: 0 0 20px rgba(255,77,109,.5); }
 }
 
 #noBtn {
-    background: #f1f1f1;
+    background: #fff;
     position: absolute;
     left: 220px;
+    top: 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,.2);
 }
 
-/* ❤️ LETTER EFFECT */
+/* LETTER */
 .letter {
-    perspective: 1200px;
-    transform-style: preserve-3d;
+    background: rgba(255, 192, 203, 0.1); /* soft pink transparent */
+    border: 2px dashed #ff4d6d;
+    border-radius: 20px;
+    padding: 20px 18px;
+    margin: 20px 0;
+    font-family: 'Dancing Script', cursive;
+    color: #c9184a;
+    font-size: 18px;
+    box-shadow: 0 10px 25px rgba(255,77,109,.2);
     animation: letterFloat 6s ease-in-out infinite;
 }
 
 @keyframes letterFloat {
-    0%   { transform: translateZ(0px) rotateX(0deg); }
-    50%  { transform: translateZ(28px) rotateX(3deg); }
-    100% { transform: translateZ(0px) rotateX(0deg); }
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
 }
 
 .letter span {
     opacity: 0;
-    animation: fadeIn 0.4s forwards;
+    animation: fadeIn .5s forwards;
 }
 
 @keyframes fadeIn {
@@ -131,140 +188,230 @@ button {
 
 /* HEARTS */
 .heart {
-    position: absolute;
+    position: fixed;
     font-size: 22px;
-    animation: float 6s linear infinite;
+    animation: float 7s linear infinite;
+    pointer-events: none;
+    z-index: 0;
 }
 
 @keyframes float {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-700px); opacity: 0; }
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.3); opacity: 0; }
+}
+
+/* WHISPERS */
+.whisper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #c9184a;
+    padding: 14px 18px;
+    border-radius: 18px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 18px;
+    box-shadow: 0 10px 25px rgba(255,77,109,.4);
+    animation: fadeUp 4s ease forwards;
+    z-index: 999;
+}
+
+@keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+
+.secretGallery img {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 14px;
+    box-shadow: 0 20px 40px rgba(255,77,109,.4);
 }
 </style>
 </head>
-
 <body>
 
 <div id="tapScreen" onclick="startMusic()">
-    Tap to begin our love story 💖
+    Tap gently… my heart is waiting for you 💞
 </div>
 
 <audio id="bgMusic" loop>
     <source src="nikitakondrashev-love-story-437006.mp3" type="audio/mpeg">
 </audio>
+<audio id="heartSound" loop autoplay>
+    <source src="dragon-studio-heartbeat-sound-372448.mp3" type="audio/mpeg">
+</audio>
 
-    
 <div class="card" id="card">
-    <h1>Hey My Love 💕</h1>
+    <h1>Hello, My Heart 💖</h1>
     <div class="name">UMA DHUNGEL</div>
 
-    <p>I made this just for you… from my heart.</p>
+    <p>
+        I didn’t just make this with code…<br>
+        I made it with every thought of you,<br>
+        every missed hug, every future dream.
+    </p>
 
-     <div class="photos">
+    <div class="photos">
         <img src="hami.jpg">
         <img src="maya.JPEG">
     </div>
 
-    <p>Will you be my Valentine? 🌹</p>
+    <p>
+        If love had a shape,<br>
+        it would look like us.<br>
+        So tell me…
+    </p>
+
+    <p><strong>Will you be my Valentine? 🌹</strong></p>
 
     <div class="buttons">
-        <button id="yesBtn" onclick="yesClicked()">YES 💖</button>
-        <button id="noBtn" onclick="noClicked()">No 🙈</button>
+        <button id="yesBtn" onclick="yesClicked()">YES, ALWAYS 💖</button>
+        <button id="noBtn" onclick="noClicked()">No 😶‍🌫️</button>
     </div>
 </div>
 
 <script>
 const music = document.getElementById("bgMusic");
+const typeSound = document.getElementById("typeSound");
+const heartSound = document.getElementById("heartSound");
 
+// START MUSIC + HEARTS
 function startMusic() {
-    music.volume = 0.8;
-    music.play();
+    music.volume = 0.7; music.play();
     document.getElementById("tapScreen").remove();
+    createHearts(); // infinite floating hearts
+    whisperLove();
 }
 
-let noCount = 0;
-let yesScale = 1;
+// PET NAMES
+const petNames = ["my heart","my forever","my sunshine","my safe place","my favorite thought","my home"];
+function randomPetName(){ return petNames[Math.floor(Math.random()*petNames.length)]; }
 
-const noTexts = [
-    "Don’t you miss the time we spent together?",
+// DAYS IN LOVE COUNTER
+const loveDate = new Date("2022-07-28");
+function daysInLove(){
+    const now = new Date();
+    const days = Math.floor((now-loveDate)/(1000*60*60*24));
+    return `It’s been ${days} days since my heart chose you, ${randomPetName()}.`;
+}
+
+// WHISPERS
+const whispers=[
+    "You’re the safest place my heart knows.",
+    "I miss you even when I’m smiling.",
+    "If love had a name, it would be yours.",
+    "Every version of my future has you in it.",
+    "I fall for you a little more every day."
+];
+function whisperLove(){
+    const note=document.createElement("div");
+    note.className="whisper";
+    note.innerText=whispers[Math.floor(Math.random()*whispers.length)];
+    document.body.appendChild(note);
+    setTimeout(()=>note.remove(),4000);
+    setTimeout(whisperLove,10000+Math.random()*5000);
+}
+
+// NO BUTTON
+let noCount=0, yesScale=1;
+const noTexts=[
+    "Are you sure? My heart already chose you…",
     "I’ll take you for pani puri or a momo date.",
     "I’ll buy you flowers, every single time.",
     "I’ll buy you promise rings too.",
-    "Okay… I’ll wait forever."
+    "I’ll hold your hand through every bad day.",
+    "I’ll love you gently. Loudly. Forever.",
+    "I already imagined our future, you know.",
+    "Okay… I’ll still wait. I always will."
 ];
-
-function noClicked() {
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-
-    yesScale += 0.25;
-    yesBtn.style.transform = `scale(${yesScale})`;
-
-    if (noCount >= noTexts.length - 1) {
-        noBtn.style.display = "none";
-        return;
-    }
-
-    noBtn.innerText = noTexts[++noCount];
-    noBtn.style.left = Math.random() * 220 + "px";
-    noBtn.style.top = Math.random() * 90 + "px";
+function noClicked(){
+    const noBtn=document.getElementById("noBtn");
+    const yesBtn=document.getElementById("yesBtn");
+    yesScale+=0.3;
+    yesBtn.style.transform=`scale(${yesScale})`;
+    if(noCount>=noTexts.length-1){noBtn.style.display="none"; return;}
+    noBtn.innerText=noTexts[++noCount];
+    noBtn.style.left=Math.random()*220+"px";
+    noBtn.style.top=Math.random()*100+"px";
 }
 
-function showLetter(lines, callback) {
-    const card = document.getElementById("card");
-    card.innerHTML = `<div class="letter"></div>`;
-    const container = card.querySelector(".letter");
-
-    let delay = 0;
-    lines.forEach(line => {
-        const p = document.createElement("p");
-        [...line].forEach(char => {
-            const span = document.createElement("span");
-            span.textContent = char;
-            span.style.animationDelay = `${delay}s`;
-            delay += 0.04;
+// LETTER EFFECT
+function showLetter(lines,callback){
+    const card=document.getElementById("card");
+    card.innerHTML=`<div class="letter"></div>`;
+    const container=card.querySelector(".letter");
+    let delay=0;
+    lines.forEach(line=>{
+        const p=document.createElement("p");
+        [...line].forEach(char=>{
+            const span=document.createElement("span");
+            span.textContent=char;
+            span.style.animationDelay=`${delay}s`;
+            delay+=0.035;
             p.appendChild(span);
         });
-        delay += 0.6;
+        delay+=0.6;
         container.appendChild(p);
     });
-
-    setTimeout(callback, delay * 1000 + 1000);
+    setTimeout(()=>{if(callback) callback();},delay*1000+500);
+    typeSound.play();
 }
 
-function yesClicked() {
+// YES BUTTON
+function yesClicked(){
     confetti();
-
-    const letter = [
-        "Almost three years with you, and I still miss you like the first day apart.",
-        "Distance has tested us, but it never changed how deeply I love you.",
-        "I miss your voice, your presence, and the life we are building together.",
-        "No matter how far we are, my heart has never left your side.",
-        "You are my today, my tomorrow, and every version of my future."
+    const letter=[
+        `Hey ${randomPetName()}…`,
+        "Loving you never felt like a choice.",
+        daysInLove(),
+        "I don’t want a perfect life — I want one with you.",
+        "In this lifetime and every next…",
+        "I am yours."
     ];
-
-    showLetter(letter, endScreen);
+    showLetter(letter,secretEnding);
 }
 
-function endScreen() {
-    document.getElementById("card").innerHTML = `
-        <h1>Until I See You Again… 💕</h1>
-        <p>I will keep choosing you.</p>
-        <p>Across every distance.</p>
-        <p>Across every lifetime.</p>
+// SECRET ENDING + GALLERY
+function secretEnding(){
+    document.getElementById("card").innerHTML=`
+        <h1>You Unlocked My Heart 🔐</h1>
+        <p>You weren’t supposed to see this…</p>
+        <p>But since you said YES, ${randomPetName()} 💖</p>
+        <div class="secretGallery">
+            <img src="love.jpg">
+        </div>
+        <p style="margin-top:18px;">No matter how far life takes us, I’ll always find my way back to you. Thank you so much sanu♥️</p>
     `;
 }
 
-function confetti() {
-    for (let i = 0; i < 60; i++) {
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.bottom = "0px";
+// CONFETTI
+function confetti(){
+    for(let i=0;i<90;i++){
+        const heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML=Math.random()>0.5?"💖":"💘";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.bottom="0px";
+        heart.style.fontSize=(10+Math.random()*20)+"px";
         document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 6000);
+        setTimeout(()=>heart.remove(),7000+Math.random()*3000);
     }
+}
+
+// FLOATING HEARTS BACKGROUND
+function createHearts(){
+    setInterval(()=>{
+        const heart=document.createElement("div");
+        heart.className="heart";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(10+Math.random()*25)+"px";
+        heart.innerHTML=Math.random()>0.5?"💖":"💘";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),7000+Math.random()*3000);
+    }, 300);
 }
 </script>
 
